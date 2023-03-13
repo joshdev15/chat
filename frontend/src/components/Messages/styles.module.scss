@@ -1,21 +1,25 @@
-$radius: 10px;
+$radius: 20px;
 
 .message {
   color: white;
   background: #404040;
+  border-radius: 10px 10px 0 0;
   padding: 10px;
+
   form {
     display: flex;
+    align-items: center;
+    justify-content: center; 
 
     input[type="text"] {
-      border-radius: $radius 0 0 $radius;
-      margin-bottom: 5px;
+      border-radius: $radius;
+      margin-right: 5px;
     }
 
     input[type="submit"] {
       background: orange;
       border: 0 solid white;
-      border-radius: 0 $radius $radius 0;
+      border-radius: $radius;
       padding: 10px;
     }
   }

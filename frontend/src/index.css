@@ -51,5 +51,11 @@ code {
   background: #303030;
   display: flex;
   flex-direction: column;
+  align-items: center;
   height: 100vh;
+}
+
+.sub {
+  width: 100%;
+  max-width: 1024px;
 }

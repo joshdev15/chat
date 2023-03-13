@@ -24,6 +24,7 @@ const App = () => {
   return (
     <React.StrictMode>
       <div className={"App"}>
+        <div className="sub">
         <MainProvider>
           <Nickname />
           <Header />
@@ -31,6 +32,7 @@ const App = () => {
           <Messages isSupported={isSupported} />
           <Notifications options={{ zIndex: 3000, animationDuration: 100 }} />
         </MainProvider>
+        </div>
       </div>
     </React.StrictMode>
   );

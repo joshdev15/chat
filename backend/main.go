@@ -14,6 +14,8 @@ import (
 const (
 	maxReadLimit  = 512
 	maxWriteLimit = 10 * time.Second
+	pingPeriod    = time.Minute
+	pongWait      = pingPeriod + (10 * time.Second)
 )
 
 // Global Variables
@@ -37,6 +39,13 @@ type Client struct {
 }
 
 func (c *Client) Write() {
+	ticker := time.NewTicker(pingPeriod)
+
+	defer func() {
+		ticker.Stop()
+		c.Conn.Close()
+	}()
+
 	for {
 		select {
 		case message, isOpen := <-c.QueueMessage:
@@ -47,7 +56,12 @@ func (c *Client) Write() {
 			c.Conn.SetWriteDeadline(time.Now().Add(maxWriteLimit))
 			if err := c.Conn.WriteJSON(message); err != nil {
 				log.Println("No se pudo escribir el mensaje", err)
-				c.Conn.Close()
+				return
+			}
+		case <-ticker.C:
+			c.Conn.SetWriteDeadline(time.Now().Add(maxWriteLimit))
+			if err := c.Conn.WriteMessage(websocket.PingMessage, []byte("Ping")); err != nil {
+				log.Println("No se pudo escribir el mensaje", err)
 				return
 			}
 		}
@@ -56,11 +70,17 @@ func (c *Client) Write() {
 
 func (c *Client) Read() {
 	c.Conn.SetReadLimit(maxReadLimit)
+	c.Conn.SetReadDeadline(time.Now().Add(pongWait))
+
+	c.Conn.SetPongHandler(func(ping string) error {
+		fmt.Println("Pong:", c.Nickname, ping)
+		c.Conn.SetReadDeadline(time.Now().Add(pongWait))
+		return nil
+	})
 
 	for {
 		message := Message{}
 		if err := c.Conn.ReadJSON(&message); err != nil {
-			fmt.Printf("Message %v | Error %v \n", message, err)
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
 				log.Println("No se pudo leer el mensaje", err)
 			}
