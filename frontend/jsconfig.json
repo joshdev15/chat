@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "jsx": "preserve",
+    "resolveJsonModule": true
+  },
+
+  "include": ["src"]
+}

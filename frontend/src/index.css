@@ -1,0 +1,55 @@
+* {
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+input[type="text"] {
+  flex: 1;
+  font-size: 15px;
+  background: transparent;
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 10px 20px;
+  color: white;
+}
+
+input[type="text"]:focus {
+  border: 1px solid dodgerblue;
+}
+
+input[type="submit"],
+input[type="button"] {
+  font-size: 15px;
+  background: silver;
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 10px 20px;
+  color: black;
+}
+
+input[type="submit"]:focus,
+input[type="button"]:focus {
+  border: 1px solid dodgerblue;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #303030;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.App {
+  background: #303030;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}

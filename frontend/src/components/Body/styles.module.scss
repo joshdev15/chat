@@ -1,0 +1,44 @@
+.body {
+  color: white;
+  padding: 10px;
+  flex: 1;
+}
+
+.msgCont {
+  width: 100%;
+  display: flex;
+
+  .msg {
+    border-radius: 12px;
+    padding: 10px;
+    margin: 5px 0;
+    width: 70%;
+
+    p:first-child {
+      font-size: 10px;
+      font-weight: bold;
+      color: #ffffff90;
+    }
+
+    p:nth-child(2) {
+      font-size: 15px;
+      color: white;
+    }
+  }
+}
+
+.me {
+  justify-content: flex-end;
+}
+
+.you {
+  justify-content: flex-start;
+}
+
+.msgMe {
+  background: #0062c1;
+}
+
+.msgYou {
+  background: #ffffff20;
+}

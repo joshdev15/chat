@@ -1,0 +1,42 @@
+.nickname {
+  width: 100%;
+  height: 100vh;
+  z-index: 2000;
+  background: transparent;
+  backdrop-filter: blur(20px);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background: #20202050;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid grey;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 5px;
+  }
+
+  h5 {
+    margin-bottom: 10px;
+  }
+
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    input[type="text"] {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    input[type="submit"] {
+      width: 50%;
+    }
+  }
+}
