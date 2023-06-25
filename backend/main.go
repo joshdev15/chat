@@ -19,7 +19,6 @@ const (
 )
 
 // Global Variables
-
 var (
 	upgrader = websocket.Upgrader{
 		ReadBufferSize:  2048,
@@ -114,17 +113,23 @@ func NewHub() *Hub {
 func (h *Hub) Run() {
 	for {
 		select {
+		// Registra (agrega) un cliente a el canal de clientes
 		case client := <-h.register:
 			h.clients[client.Nickname] = client
+
+		// Elimina (borra) un cliente del canal de clientes
 		case client := <-h.unregister:
 			if _, ok := h.clients[client.Nickname]; ok {
 				delete(h.clients, client.Nickname)
 				close(client.QueueMessage)
 			}
 
+		// Nuevo mensaje
 		case message := <-h.broadcast:
 			for nickname, client := range h.clients {
 				if message.Nickname != nickname {
+					// Sí client.QueueMessage no es done, entonces
+					// ejecuta el caso por defecto
 					select {
 					case client.QueueMessage <- message:
 					default:
@@ -132,6 +137,7 @@ func (h *Hub) Run() {
 						close(client.QueueMessage)
 					}
 				}
+
 			}
 		}
 	}
@@ -171,7 +177,6 @@ func HandleWS(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	newClient.Hub.register <- newClient
 	go newClient.Write()
 	go newClient.Read()
-
 }
 
 // Main

@@ -1,0 +1,21 @@
+root = true
+
+[*]
+charset=utf-8
+end_of_line = lf
+insert_final_newline = true
+
+[*.{js,py}]
+indent_style = space
+indent_size = 2
+
+[*.{go,sum,mod}]
+indent_style = tab
+indent_size = 8
+
+[Makefile]
+indent_style = tab
+
+[{package.json,.travis.yml}]
+indent_style = space
+indent_size = 2
